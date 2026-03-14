@@ -1,5 +1,3 @@
-
-
 export const debutantQuestions = [
   {
     id: 1,
@@ -489,21 +487,19 @@ export const expertQuestions = [
   }
 ];
 
-// Questions pour l'examen final (60 questions mélangées - 3 séries de 20)
 export const examQuestions = [
-  // Série 1 - 20 questions mélangées
   [
     ...debutantQuestions.slice(0, 7),
     ...intermediaireQuestions.slice(0, 7),
     ...expertQuestions.slice(0, 6)
   ],
-  // Série 2 - 20 questions mélangées
+
   [
     ...debutantQuestions.slice(7, 14),
     ...intermediaireQuestions.slice(7, 14),
     ...expertQuestions.slice(6, 12)
   ],
-  // Série 3 - 20 questions mélangées
+ 
   [
     ...debutantQuestions.slice(14, 20),
     ...intermediaireQuestions.slice(14, 20),
@@ -517,7 +513,6 @@ export const allQuestions = [
   ...expertQuestions
 ];
 
-// Aliases français pour les imports dans les composants
 export const questionsDebutant      = debutantQuestions
 export const questionsIntermediaire = intermediaireQuestions
 export const questionsExpert        = expertQuestions

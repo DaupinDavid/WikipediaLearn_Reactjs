@@ -1,36 +1,30 @@
-// ================================================================
-// CoursHeader.jsx — EN-TÊTE STICKY DU COURS
-// ================================================================
-// Props :
-//   - niveau          → 'debutant' | 'intermediaire' | 'expert'
-//   - titre           → titre du cours
-//   - duree           → durée estimée en minutes
-//   - pourcentage     → 0-100
-//   - surRetour       → fonction retour
-// ================================================================
-
-import { ChevronLeft, Clock } from 'lucide-react'
-import './CoursHeader.css'
+import { ChevronLeft, Clock } from "lucide-react";
+import "./CoursHeader.css";
 
 const NOMS_NIVEAU = {
-  debutant:      'Débutant',
-  intermediaire: 'Intermédiaire',
-  expert:        'Expert',
-}
+  debutant: "Débutant",
+  intermediaire: "Intermédiaire",
+  expert: "Expert",
+};
 
 const ICONES_NIVEAU = {
-  debutant:      '🌱',
-  intermediaire: '📚',
-  expert:        '👑',
-}
+  debutant: "🌱",
+  intermediaire: "📚",
+  expert: "👑",
+};
 
 export function CoursHeader({ niveau, titre, duree, pourcentage, surRetour }) {
   return (
     <header className="cours-header">
       <div className="cours-header-contenu">
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
             {/* Bouton retour */}
             <button onClick={surRetour} className="cours-header-retour">
               <ChevronLeft />
@@ -39,7 +33,9 @@ export function CoursHeader({ niveau, titre, duree, pourcentage, surRetour }) {
 
             {/* Titre du cours */}
             <div className="cours-header-titre-groupe">
-              <span className="cours-header-niveau-icone">{ICONES_NIVEAU[niveau]}</span>
+              <span className="cours-header-niveau-icone">
+                {ICONES_NIVEAU[niveau]}
+              </span>
               <div>
                 <h1 className="cours-header-titre">{titre}</h1>
                 <p className="cours-header-niveau-nom">{NOMS_NIVEAU[niveau]}</p>
@@ -51,7 +47,6 @@ export function CoursHeader({ niveau, titre, duree, pourcentage, surRetour }) {
               <Clock />
               {duree} min
             </div>
-
           </div>
 
           {/* Barre de progression du cours */}
@@ -70,5 +65,5 @@ export function CoursHeader({ niveau, titre, duree, pourcentage, surRetour }) {
         </div>
       </div>
     </header>
-  )
+  );
 }

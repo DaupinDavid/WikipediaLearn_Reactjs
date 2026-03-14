@@ -437,5 +437,4 @@ Ces événements marquent traditionnellement la fin du Moyen-Âge et le début d
   }
 ];
 
-// Alias français
 export const cours = courses

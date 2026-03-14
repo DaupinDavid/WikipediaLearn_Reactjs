@@ -1,15 +1,5 @@
-// ================================================================
-// CoursTermine.jsx — BANNER DE FIN DE COURS
-// ================================================================
-// Affiché quand toutes les sections ont été lues.
-//
-// Props :
-//   - nomNiveau       → 'Débutant' | 'Intermédiaire' | 'Expert'
-//   - surDemarrerQuiz → fonction démarrer le quiz
-// ================================================================
-
-import { CheckCircle, Play } from 'lucide-react'
-import './CoursTermine.css'
+import { CheckCircle, Play } from "lucide-react";
+import "./CoursTermine.css";
 
 export function CoursTermine({ nomNiveau, surDemarrerQuiz }) {
   return (
@@ -26,5 +16,5 @@ export function CoursTermine({ nomNiveau, surDemarrerQuiz }) {
         Commencer le quiz (20 questions)
       </button>
     </div>
-  )
+  );
 }

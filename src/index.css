@@ -1,65 +1,35 @@
-/**
- * ============================================
- * STYLES CSS GLOBAUX (index.css)
- * ============================================
- *
- * Ce fichier contient :
- * 1. Les variables CSS pour les couleurs du thème
- * 2. Les styles de base (body, *)
- * 3. Des animations personnalisées
- * 4. Des styles pour la scrollbar
- *
- * MODIFICATION : Ajout de l'animation glissementDroite
- *                utilisée par le Mode Survie (ModeSurvie.tsx)
- */
-
-/* ============================================
-   VARIABLES CSS (thème clair par défaut)
-   Ces variables définissent les couleurs du thème.
-   Valeurs converties en hsl() directement utilisables.
-   ============================================ */
 :root {
-  /* Couleurs de fond et texte */
-  --background: hsl(0, 0%, 100%);          /* Blanc */
-  --foreground: hsl(240, 10%, 3.9%);       /* Noir */
 
-  /* Couleurs des cartes */
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(240, 10%, 3.9%);
+
   --card: hsl(0, 0%, 100%);
   --card-foreground: hsl(240, 10%, 3.9%);
 
-  /* Couleurs des popups */
   --popover: hsl(0, 0%, 100%);
   --popover-foreground: hsl(240, 10%, 3.9%);
 
-  /* Couleur principale (boutons, liens...) */
   --primary: hsl(240, 5.9%, 10%);
   --primary-foreground: hsl(0, 0%, 98%);
 
-  /* Couleur secondaire */
   --secondary: hsl(240, 4.8%, 95.9%);
   --secondary-foreground: hsl(240, 5.9%, 10%);
 
-  /* Couleurs muted (atténuées) */
   --muted: hsl(240, 4.8%, 95.9%);
   --muted-foreground: hsl(240, 3.8%, 46.1%);
 
-  /* Couleur d'accent */
   --accent: hsl(240, 4.8%, 95.9%);
   --accent-foreground: hsl(240, 5.9%, 10%);
 
-  /* Couleur destructive (erreurs, danger) */
   --destructive: hsl(0, 84.2%, 60.2%);
   --destructive-foreground: hsl(0, 0%, 98%);
 
-  /* Bordures et inputs */
   --border: hsl(240, 5.9%, 90%);
   --input: hsl(240, 5.9%, 90%);
   --ring: hsl(240, 5.9%, 10%);
 
-  /* Rayon des bordures arrondies */
   --radius: 0.625rem;
 
-  /* Couleurs de la sidebar */
   --sidebar-background: hsl(0, 0%, 98%);
   --sidebar-foreground: hsl(240, 5.3%, 26.1%);
   --sidebar-primary: hsl(240, 5.9%, 10%);
@@ -75,12 +45,12 @@
    ============================================ */
 * {
   box-sizing: border-box;
-  border-color: var(--border);  /* Couleur de bordure par défaut */
+  border-color: var(--border);
 }
 
 body {
-  background-color: var(--background);  /* Fond blanc */
-  color: var(--foreground);             /* Texte noir */
+  background-color: var(--background);
+  color: var(--foreground);
   margin: 0;
   padding: 0;
 }
@@ -89,80 +59,66 @@ body {
    ANIMATIONS PERSONNALISÉES
    ============================================ */
 
-/**
- * Animation d'apparition en fondu
- * Utilisée pour faire apparaître les éléments progressivement
- */
 @keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-/**
- * Animation de glissement latéral
- * Utilisée pour les transitions entre pages
- */
 @keyframes slideIn {
   from {
     opacity: 0;
     transform: translateX(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
   }
 }
 
-/**
- * Animation de glissement depuis la droite
- * Utilisée dans le Mode Survie (ModeSurvie.tsx)
- * La carte-question part hors écran à droite et glisse
- * vers sa position normale en 2 secondes
- */
 @keyframes glissementDroite {
   from {
     opacity: 0;
-    transform: translateX(100%);  /* Démarre complètement hors écran à droite */
+    transform: translateX(100%);
   }
+
   to {
     opacity: 1;
-    transform: translateX(0);     /* Arrive à sa position normale */
+    transform: translateX(0);
   }
 }
 
-/**
- * Animation de pulsation lumineuse
- * Utilisée pour attirer l'attention sur un élément
- */
 @keyframes pulse-glow {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
   }
+
   50% {
     box-shadow: 0 0 20px 10px rgba(245, 158, 11, 0.2);
   }
 }
 
-/**
- * Animation de flottement
- * Utilisée pour les éléments qui "flottent" (badges, notifications)
- */
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
 }
 
-/* Classes utilitaires pour les animations */
 .animate-fade-in {
   animation: fadeIn 0.5s ease-out;
 }
@@ -179,18 +135,10 @@ body {
   animation: float 3s ease-in-out infinite;
 }
 
-/* ============================================
-   PATTERN MÉDIÉVAL (optionnel)
-   Un motif décoratif en arrière-plan
-   ============================================ */
 .bg-medieval-pattern {
   background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4a574' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
-/* ============================================
-   SCROLLBAR PERSONNALISÉE
-   Change l'apparence de la barre de défilement
-   ============================================ */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -202,12 +150,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d4a574;  /* Couleur ambre */
+  background: #d4a574;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b8935f;  /* Couleur plus foncée au survol */
+  background: #b8935f;
 }
 
 /* ============================================
@@ -215,6 +163,6 @@ body {
    Change la couleur quand on sélectionne du texte
    ============================================ */
 ::selection {
-  background: rgba(245, 158, 11, 0.3);  /* Ambre transparent */
+  background: rgba(245, 158, 11, 0.3);
   color: inherit;
 }

@@ -1,21 +1,11 @@
-// ================================================================
-// CarteExamen.jsx — CARTE EXAMEN FINAL
-// ================================================================
-// Affiche la carte "Examen Final" (verrouillée si les 3 niveaux
-// ne sont pas encore terminés)
-//
-// Props :
-//   - examenDebloque    → boolean
-//   - surDemarrerExamen → fonction appelée au clic sur le bouton
-// ================================================================
-
-import { Target, Star, GraduationCap } from 'lucide-react'
-import './CarteExamen.css'
+import { Target, Star, GraduationCap } from "lucide-react";
+import "./CarteExamen.css";
 
 export function CarteExamen({ examenDebloque, surDemarrerExamen }) {
   return (
-    <div className={`examen-carte ${examenDebloque ? 'examen-carte--debloque' : 'examen-carte--verrouille'}`}>
-
+    <div
+      className={`examen-carte ${examenDebloque ? "examen-carte--debloque" : "examen-carte--verrouille"}`}
+    >
       <h2 className="examen-titre">
         <GraduationCap />
         Examen Final
@@ -42,11 +32,10 @@ export function CarteExamen({ examenDebloque, surDemarrerExamen }) {
       <button
         onClick={surDemarrerExamen}
         disabled={!examenDebloque}
-        className={`examen-bouton ${examenDebloque ? 'examen-bouton--actif' : 'examen-bouton--inactif'}`}
+        className={`examen-bouton ${examenDebloque ? "examen-bouton--actif" : "examen-bouton--inactif"}`}
       >
         {examenDebloque ? "Commencer l'examen" : "Verrouillé"}
       </button>
-
     </div>
-  )
+  );
 }

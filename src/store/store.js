@@ -1,22 +1,3 @@
-// ================================================================
-// store.js — LA MÉMOIRE DU JEU
-// ================================================================
-// Ce fichier stocke toutes les données du joueur :
-// - Son niveau actuel
-// - Les niveaux qu'il a terminés
-// - Son total d'XP
-// - Ses badges
-// - Ses résultats de quiz et d'examen
-//
-// Ces données sont SAUVEGARDÉES dans le navigateur (localStorage),
-// ce qui veut dire qu'elles restent même après avoir fermé la page.
-//
-// Comment modifier :
-//   - Ajouter un badge → créez une entrée dans BADGES_DISPONIBLES
-//   - Changer les XP gagnés → modifiez dans Quiz.jsx / Examen.jsx
-//   - Changer les conditions de passage → modifiez peutAccederNiveau
-// ================================================================
-
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -70,15 +51,14 @@ export const BADGES_DISPONIBLES = {
 }
 
 // ----------------------------------------------------------------
-// PROGRESSION VIDE (état de départ)
-// C'est ce qui s'affiche quand le joueur commence pour la première fois
+// PROGRESSION VIDE DE DÉPART
 // ----------------------------------------------------------------
 const progressionDeDepart = {
   niveauActuel: null,
-  niveauxTermines: [],        // Ex : ['debutant', 'intermediaire']
+  niveauxTermines: [],       
   totalXP: 0,
   badges: [],
-  resultatsQuiz: {            // Résultats pour chaque niveau
+  resultatsQuiz: {            /
     debutant: [],
     intermediaire: [],
     expert: []
@@ -88,18 +68,14 @@ const progressionDeDepart = {
 
 // ----------------------------------------------------------------
 // CRÉATION DU STORE
-// "create" crée le store, "persist" le sauvegarde dans le navigateur
 // ----------------------------------------------------------------
 export const useStore = create(
   persist(
     (set, get) => ({
-
-      // La progression du joueur (initialement vide)
       progression: progressionDeDepart,
 
       // --------------------------------------------------------
       // AJOUTER DES XP
-      // Appelée après chaque quiz ou examen réussi
       // --------------------------------------------------------
       ajouterXP: (montant) => {
         set((etat) => ({
@@ -112,27 +88,20 @@ export const useStore = create(
 
       // --------------------------------------------------------
       // TERMINER UN NIVEAU
-      // Appelée quand le joueur réussit un quiz (score >= 12/20)
-      // Débloque automatiquement des badges si nécessaire
       // --------------------------------------------------------
       terminerNiveau: (niveau) => {
         set((etat) => {
-          // On copie la liste des niveaux terminés
           const niveauxTermines = [...etat.progression.niveauxTermines]
 
-          // On ajoute le niveau seulement s'il n'est pas déjà là
           if (!niveauxTermines.includes(niveau)) {
             niveauxTermines.push(niveau)
           }
 
-          // Vérifie si TOUS les niveaux sont terminés
           const tousTermines = ['debutant', 'intermediaire', 'expert']
             .every(n => niveauxTermines.includes(n))
 
-          // On copie la liste des badges
           const badges = [...etat.progression.badges]
 
-          // On débloque le badge correspondant au niveau
           if (niveau === 'debutant' && !badges.find(b => b.id === BADGES_DISPONIBLES.NIVEAU_DEBUTANT.id)) {
             badges.push({ ...BADGES_DISPONIBLES.NIVEAU_DEBUTANT, debloqueA: new Date() })
           }
@@ -143,7 +112,6 @@ export const useStore = create(
             badges.push({ ...BADGES_DISPONIBLES.NIVEAU_EXPERT, debloqueA: new Date() })
           }
 
-          // Si tous les niveaux sont terminés → badge spécial
           if (tousTermines && !badges.find(b => b.id === BADGES_DISPONIBLES.TOUS_NIVEAUX.id)) {
             badges.push({ ...BADGES_DISPONIBLES.TOUS_NIVEAUX, debloqueA: new Date() })
           }
@@ -160,11 +128,9 @@ export const useStore = create(
 
       // --------------------------------------------------------
       // AJOUTER UN BADGE MANUELLEMENT
-      // Appelée pour des badges spéciaux (score parfait, rapidité…)
       // --------------------------------------------------------
       ajouterBadge: (badge) => {
         set((etat) => {
-          // Si le badge existe déjà, on ne l'ajoute pas deux fois
           if (etat.progression.badges.find(b => b.id === badge.id)) return etat
           return {
             progression: {
@@ -177,7 +143,6 @@ export const useStore = create(
 
       // --------------------------------------------------------
       // SAUVEGARDER LES RÉSULTATS D'UN QUIZ
-      // Appelée à la fin du quiz pour garder l'historique
       // --------------------------------------------------------
       sauvegarderResultatsQuiz: (niveau, resultats) => {
         set((etat) => {
@@ -200,7 +165,7 @@ export const useStore = create(
               ...etat.progression,
               resultatsQuiz: {
                 ...etat.progression.resultatsQuiz,
-                [niveau]: resultats   // On remplace les résultats pour ce niveau
+                [niveau]: resultats 
               },
               badges
             }
@@ -210,14 +175,12 @@ export const useStore = create(
 
       // --------------------------------------------------------
       // SAUVEGARDER LES RÉSULTATS D'UNE SÉRIE D'EXAMEN
-      // Appelée à la fin de chaque série (1, 2 ou 3)
       // --------------------------------------------------------
       sauvegarderResultatsExamen: (resultat) => {
         set((etat) => {
           const resultatsExamen = [...etat.progression.resultatsExamen, resultat]
           const badges = [...etat.progression.badges]
 
-          // Badge diplôme (après avoir complété les 3 séries)
           if (resultatsExamen.length >= 3 && !badges.find(b => b.id === BADGES_DISPONIBLES.EXAMEN_REUSSI.id)) {
             badges.push({ ...BADGES_DISPONIBLES.EXAMEN_REUSSI, debloqueA: new Date() })
           }
@@ -234,7 +197,6 @@ export const useStore = create(
 
       // --------------------------------------------------------
       // CHANGER LE NIVEAU ACTUEL
-      // Appelée dans App.jsx quand l'utilisateur choisit un niveau
       // --------------------------------------------------------
       changerNiveauActuel: (niveau) => {
         set((etat) => ({
@@ -244,7 +206,6 @@ export const useStore = create(
 
       // --------------------------------------------------------
       // REMETTRE À ZÉRO
-      // Efface toute la progression du joueur
       // --------------------------------------------------------
       reinitialiser: () => {
         set({ progression: progressionDeDepart })
@@ -266,7 +227,6 @@ export const useStore = create(
 
       // --------------------------------------------------------
       // SCORE D'UN NIVEAU (lecture seule)
-      // Retourne le nombre de bonnes réponses au dernier quiz
       // --------------------------------------------------------
       scoreNiveau: (niveau) => {
         const resultats = get().progression.resultatsQuiz[niveau]
@@ -276,9 +236,7 @@ export const useStore = create(
 
     }),
     {
-      // Nom de la clé dans le localStorage du navigateur
       name: 'wikipedia-learn-sauvegarde',
-      // On sauvegarde uniquement la progression (pas les fonctions)
       partialize: (etat) => ({ progression: etat.progression })
     }
   )
