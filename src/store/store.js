@@ -58,7 +58,7 @@ const progressionDeDepart = {
   niveauxTermines: [],       
   totalXP: 0,
   badges: [],
-  resultatsQuiz: {            /
+  resultatsQuiz: {          
     debutant: [],
     intermediaire: [],
     expert: []
